@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: minecraftserver-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+       name: minecraftserver
+    spec:
+      containers:
+        - name: minecraftserver
+          image: openhack/minecraft-server:2.0
+          volumeMounts:
+          - mountPath: "/data"
+            name: volume
+          ports:
+            - containerPort: 25565
+            - containerPort: 25575
+          env:
+           - name: EULA
+             value: "TRUE"
+      volumes:
+        - name: volume
+          persistentVolumeClaim:
+            claimName: azure-managed-disk
