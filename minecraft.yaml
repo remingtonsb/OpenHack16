@@ -1,29 +1,20 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: minecraftserver
+  name: minecraftserver-deployment
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: minecraftserver
+       name: minecraftserver
     spec:
       containers:
-      - name: minecraftserver
-        image: openhack/minecraft-server
-        ports:
-        - containerPort: 25565
-        env:
-        - name: EULA
-          value: TRUE
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: minecraftserver
-spec:
-  ports:
-  - port: 25565
-  selector:
-    app: minecraftserver
+        - name: minecraftserver
+          image: openhack/minecraft-server:2.0
+          ports:
+            - containerPort: 25565
+            - containerPort: 25575
+          env:
+           - name: EULA
+             value: "TRUE"
