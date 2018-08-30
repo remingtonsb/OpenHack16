@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: servico-minecraft
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 25565
+      name: portjogo
+    - port: 25575
+      name: portrcon
+  selector:
+    name: minecraftserver
